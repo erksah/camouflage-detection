@@ -1,5 +1,6 @@
 streamlit==1.31.1
 ultralytics==8.0.198
+torch==2.0.1
 opencv-python==4.8.1.78
 numpy==1.24.4
 pillow==9.5.0
