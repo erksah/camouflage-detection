@@ -7,7 +7,7 @@ import numpy as np
 # Load YOLOv8 model
 model = YOLO("yolov8n.pt")
 
-st.title("🕵️ Person Detection using YOLOv8")
+st.title("🕵️🪖 Camouflage Person Detection using YOLOv8")
 
 uploaded_file = st.file_uploader("Upload an Image", type=["jpg", "jpeg", "png"])
 
