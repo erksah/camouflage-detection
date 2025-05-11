@@ -34,8 +34,5 @@ if uploaded_file is not None:
             draw.rectangle([(x1, y1), (x2, y2)], outline="green", width=3)
             draw.text((x1, y1 - 10), label, fill="green")
 
-    # Convert back to RGB if needed (in case any transparency exists)
-    draw_img = draw_img.convert("RGB")
-
     # Show result
     st.image(draw_img, caption="Detected Person(s)", use_container_width=True)
