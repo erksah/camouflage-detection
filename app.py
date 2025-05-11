@@ -3,8 +3,8 @@ from ultralytics import YOLO
 from PIL import Image, ImageDraw
 import numpy as np
 
-# Load YOLOv8 model (replace with "camouflage.pt" if you have a custom one)
-model = YOLO("yolov8n.pt")  # or "camouflage.pt" if trained
+# Load YOLOv8 model
+model = YOLO("yolov8n.pt")  # Replace with "camouflage.pt" if you train your own
 
 st.title("🪖 Camouflage Person Detection using YOLOv8")
 
@@ -20,18 +20,26 @@ if uploaded_file is not None:
     boxes = results.boxes
     class_names = model.names
 
-    # Draw on image using PIL
-    draw_img = Image.fromarray(img_np)
+    # Draw bounding boxes using PIL
+    draw_img = Image.fromarray(img_np.copy())
     draw = ImageDraw.Draw(draw_img)
 
     for box in boxes:
         cls_id = int(box.cls[0])
         label = class_names[cls_id]
 
-        if label == "person":  # Only show persons
+        if label == "person":
             x1, y1, x2, y2 = map(int, box.xyxy[0])
             draw.rectangle([(x1, y1), (x2, y2)], outline="green", width=3)
             draw.text((x1, y1 - 10), label, fill="green")
 
-    # Show result
-    st.image(draw_img, caption="Detected Person(s)", use_column_width=True)
+    # Display images side by side
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.subheader("📷 Original Image")
+        st.image(img, use_column_width=True)
+
+    with col2:
+        st.subheader("✅ Detected Image")
+        st.image(draw_img, caption="Detected Person(s)", use_column_width=True)
